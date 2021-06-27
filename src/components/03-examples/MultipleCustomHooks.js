@@ -6,9 +6,11 @@ const MultipleCustomHooks = () => {
 
   const {counter, increment} = useCounter(1)
 
-  const {loading, data} = UseFetch(`https://www.breakingbadapi.com/api/quotes/${counter}`)
+  const {loading, data,} = UseFetch(`https://www.breakingbadapi.com/api/quotes/${counter}`)
 
   const {author, quote} = !!data && data[0]
+
+
 
 
 
