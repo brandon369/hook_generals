@@ -12,6 +12,7 @@ import Layout from "./components/05-useLayoutEffect/LayoutEffect";
 import Memorize from "./components/06-memos/Memorize";
 import MemoHook from "./components/06-memos/MemoHook";
 import CallbackHook from "./components/06-memos/CallbackHook";
+import {Padre} from "./components/07-tarea-memo/Padre";
 
 
 ReactDOM.render(
@@ -25,7 +26,8 @@ ReactDOM.render(
   // <Layout/>,
   // <Memorize/>,
   // <MemoHook/>,
-  <CallbackHook/>,
+  // <CallbackHook/>,
+  <Padre/>,
   document.getElementById('root')
 );
 
