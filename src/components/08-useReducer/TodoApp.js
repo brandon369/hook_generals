@@ -2,7 +2,8 @@ import React, {useEffect, useReducer} from 'react'
 import {todoReducer} from "./todoReducer";
 
 import './styles.css'
-import UseForm from "../../hooks/useForm";
+import TodoList from "./TodoList";
+import TodoAdd from "./TodoAdd";
 
 
 // const initialState = [{
@@ -27,11 +28,6 @@ const TodoApp = () => {
   const [todos, dispatch] = useReducer(todoReducer, [], init);
 
 
-  const [{description}, handleInputChanges, reset] = UseForm({
-    description: ''
-  })
-  console.log(description)
-  console.log(todos)
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
@@ -58,32 +54,16 @@ const TodoApp = () => {
     dispatch(action)
   }
 
+  const handleAddTodo = (newTodo) => {
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (description.trim().length <= 1) {
-      return
-    }
-
-    const newTodo = {
-      id: new Date().getTime(),
-      desc: description,
-      done: false
-
-    }
-
-    const action = {
+    dispatch({
       type: 'add',
       payload: newTodo
-    }
-
-
-    dispatch(action)
-    reset()
-
+    })
 
   }
+
+
 
   return (
     <div>
@@ -92,49 +72,10 @@ const TodoApp = () => {
       <div className='row'>
 
         <div className='col-7'>
-          <ul className='list-group list-group-flush'>
-            {
-              todos.map((todo, i) => (
-                <li
-                  key={todo.id}
-                  className='list-group-item'
-                >
-                  <p
-                    className={`text-center ${todo.done && 'complete'}`}
-                    onClick={()=>handleComplete(todo.id)}
-                  >
-                    {i + 1} {todo.desc}
-                  </p>
-                  <button
-                    className='btn btn-danger'
-                    onClick={() => handleDelete(todo.id)}
-                  >
-                    Borrar
-                  </button>
-
-                </li>
-              ))
-            }
-          </ul>
+          <TodoList handleComplete={handleComplete} handleDelete={handleDelete} todos={todos}/>
         </div>
         <div className='col-5'>
-          <h4>Agregar Todo</h4>
-          <hr/>
-
-          <form onSubmit={handleSubmit}>
-            <input
-              type='text'
-              className='form-control'
-              name='description'
-              placeholder='aprender ...'
-              autoComplete='off'
-              value={description}
-              onChange={handleInputChanges}
-            />
-            <button type='submit' className='btn btn-outline-primary mt-1 btn-block'>
-              Agregar
-            </button>
-          </form>
+          <TodoAdd handleAddTodo={handleAddTodo}/>
         </div>
 
       </div>
