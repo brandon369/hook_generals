@@ -43,9 +43,19 @@ const TodoApp = () => {
       type: 'delete',
       payload: todoId
     }
-    
+
     dispatch(action)
 
+  }
+
+  const handleComplete = (todoId) => {
+    const action = {
+      type: 'complete',
+      payload: todoId
+    }
+
+
+    dispatch(action)
   }
 
 
@@ -89,7 +99,12 @@ const TodoApp = () => {
                   key={todo.id}
                   className='list-group-item'
                 >
-                  <p className='text-center'> {i + 1} {todo.desc}</p>
+                  <p
+                    className={`text-center ${todo.done && 'complete'}`}
+                    onClick={()=>handleComplete(todo.id)}
+                  >
+                    {i + 1} {todo.desc}
+                  </p>
                   <button
                     className='btn btn-danger'
                     onClick={() => handleDelete(todo.id)}
